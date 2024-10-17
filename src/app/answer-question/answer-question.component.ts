@@ -25,21 +25,20 @@ export class AnswerQuestionComponent {
   async answerQuestion(event: Event) {
     event.preventDefault();
 
-    if (this.turnCount >= this.maxTurns) {
-      return;
-    }
-
     const userMessage = this.question();
+    const systemPrompt = localStorage.getItem('systemPrompt') || 'You are a helpful assistant.';
+
     if (userMessage.trim()) {
       this.conversationHistory.update(history => [...history, { role: 'user', content: userMessage }]);
       this.question.set('');
 
-      const response = await this.openAiService.answerQuestions(userMessage);
+      const response = await this.openAiService.answerQuestions(userMessage, systemPrompt);
       const botMessage = response.choices[0].message.content;
 
       this.conversationHistory.update(history => [...history, { role: 'bot', content: botMessage }]);
     }
   }
+
 
   startOver() {
     this.conversationHistory.set([]);
