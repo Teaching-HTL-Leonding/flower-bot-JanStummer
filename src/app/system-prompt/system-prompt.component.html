@@ -1,0 +1,7 @@
+<h2>Set System Prompt</h2>
+
+<form (submit)="saveSystemPrompt()">
+  <label for="systemPrompt">System Prompt:</label>
+  <textarea id="systemPrompt" [(ngModel)]="systemPrompt" name="systemPrompt" rows="4" placeholder="Enter the system prompt here..."></textarea>
+  <button type="submit">Save Prompt</button>
+</form>

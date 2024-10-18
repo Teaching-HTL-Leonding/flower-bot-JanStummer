@@ -1,0 +1,27 @@
+<h2>Chat with the Bot</h2>
+<button routerLink="/system-prompt">Set System Prompt</button>
+
+<form (submit)="answerQuestion($event)">
+  <label for="question">Enter your question:</label>
+  <div>
+    <input type="text" name="question" id="question" list="suggsestions" placeholder="Enter Question" [(ngModel)]="question" [disabled]="turnCount >= maxTurns"/>
+    <datalist id="suggsestions">
+      <option>Are dolphin fish?</option>
+      <option>What is the best football club?</option>
+      <option>Is Messi the GOAT?</option>
+    </datalist>
+    <button type="submit" [disabled]="turnCount >= maxTurns">Answer</button>
+  </div>
+</form>
+
+<div class="chat-history">
+  <div *ngFor="let message of conversationHistory(); let i = index">
+    <div [ngClass]="{'user-message': message.role === 'user', 'bot-message': message.role === 'system'}">
+      <strong>{{ message.role === 'user' ? 'You' : 'system' }}:</strong> {{ message.content }}
+    </div>
+  </div>
+</div>
+
+<div *ngIf="turnCount >= maxTurns">
+  <button (click)="startOver()">Start Over</button>
+</div>

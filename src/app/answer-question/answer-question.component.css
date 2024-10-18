@@ -1,0 +1,50 @@
+form label {
+  display: block;
+  margin: 0.5rem;
+}
+
+form div {
+  display: flex;
+}
+
+form div input {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+form div button{
+  margin-left: 0.5rem;
+  padding: 0.5rem 0.1rem;
+}
+
+.chat-history {
+  margin-top: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.user-message {
+  background-color: #e0ffe0;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  text-align: right;
+}
+
+.bot-message {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  text-align: left;
+}
+
+input[disabled], button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button {
+  margin-top: 10px;
+}
+
