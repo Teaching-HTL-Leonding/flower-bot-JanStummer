@@ -1,5 +1,5 @@
 <h2>Chat with the Bot</h2>
-<button routerLink="/../system-prompt">Set System Prompt</button>
+<button routerLink="/system-prompt">Set System Prompt</button>
 
 <form (submit)="answerQuestion($event)">
   <label for="question">Enter your question:</label>
@@ -16,8 +16,8 @@
 
 <div class="chat-history">
   <div *ngFor="let message of conversationHistory(); let i = index">
-    <div [ngClass]="{'user-message': message.role === 'user', 'bot-message': message.role === 'bot'}">
-      <strong>{{ message.role === 'user' ? 'You' : 'Bot' }}:</strong> {{ message.content }}
+    <div [ngClass]="{'user-message': message.role === 'user', 'bot-message': message.role === 'system'}">
+      <strong>{{ message.role === 'user' ? 'You' : 'system' }}:</strong> {{ message.content }}
     </div>
   </div>
 </div>

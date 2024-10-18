@@ -22,14 +22,15 @@ export type OpenAIResponse = {
 export class OpenAIService {
   private httpClient = inject(HttpClient);
 
-  answerQuestions(question: string, systemPrompt: string): Promise<OpenAIResponse> {
+  answerQuestions(conversationHistory: { role: string, content: string }[], systemPrompt: string): Promise<OpenAIResponse> {
     return firstValueFrom(
       this.httpClient.post<OpenAIResponse>(
-        'http://localhost:3000/openai/deployments/gpt-4o-mini/chat/completions', {
+        'http://localhost:3000/openai/deployments/gpt-4o-mini/chat/completions',
+        {
           messages: [
             { role: 'system', content: systemPrompt },
-            { role: 'user', content: question }
-          ],
+            ...conversationHistory
+          ]
         }
       )
     );

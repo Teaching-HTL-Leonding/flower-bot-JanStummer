@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { OpenAIService } from '../open-ai.service';
 import { MarkdownModule } from 'ngx-markdown';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-answer-question',
   standalone: true,
-  imports: [FormsModule, CommonModule, MarkdownModule],
+  imports: [FormsModule, CommonModule, MarkdownModule, RouterLink],
   templateUrl: './answer-question.component.html',
   styleUrls: ['./answer-question.component.css']
 })
@@ -32,10 +33,12 @@ export class AnswerQuestionComponent {
       this.conversationHistory.update(history => [...history, { role: 'user', content: userMessage }]);
       this.question.set('');
 
-      const response = await this.openAiService.answerQuestions(userMessage, systemPrompt);
+      const conversation = this.conversationHistory().map(({ role, content }) => ({ role, content }));
+
+      const response = await this.openAiService.answerQuestions(conversation, systemPrompt);
       const botMessage = response.choices[0].message.content;
 
-      this.conversationHistory.update(history => [...history, { role: 'bot', content: botMessage }]);
+      this.conversationHistory.update(history => [...history, { role: 'system', content: botMessage }]);
     }
   }
 
